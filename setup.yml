@@ -1,0 +1,23 @@
+
+- name: "Configuration of Dev VM." 
+  hosts: localhost
+  user: epoch
+  become: true
+  become_method: sudo
+  become_user: root  
+  gather_facts: false
+  vars:
+    - ansible_python_interpreter: /usr/bin/python3
+    - ansible_host_key_checking: false
+    - ansible_stdout_callback: yaml
+
+  pre_tasks:
+
+    - name: "Install python for Ansible."
+      apt:
+        name: python3
+        update_cache: yes
+        state: present
+
+  roles:
+    - configure-dev-vm
