@@ -1,6 +1,7 @@
 
 - name: "Configuration of Dev VM." 
   hosts: localhost
+  connection: local
   user: epoch
   become: true
   become_method: sudo
