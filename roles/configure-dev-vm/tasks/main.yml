@@ -35,7 +35,6 @@
       - gnupg
       - software-properties-common
       - terraform
-      - golang-go
     state: latest
     update_cache: yes
 
@@ -65,3 +64,18 @@
       - scrapy
       - beautifulsoup4
       - seaborn
+
+- name: "Grab go binary and install"
+  become: true
+  shell: | 
+    wget https://go.dev/dl/go1.19.1.linux-amd64.tar.gz
+    rm -rf /usr/local/go && tar -C /usr/local -xzf go1.19.1.linux-amd64.tar.gz
+    rm go1.19.1.linux-amd64.tar.gz
+  args:
+    warn: false
+
+- name: "Add go to path in bashrc"
+  become: false
+  ansible.builtin.lineinfile:
+    path: ~/.bashrc
+    line: export PATH=$PATH:/usr/local/go/bin
